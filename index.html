@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gothic+A1:400,700">
   <link rel="stylesheet" href="assets/css/style.css">
   <title>Star Wars RPG</title>
 </head>
@@ -17,9 +18,8 @@
 
   <header class="container-fluid mb-2">
     <div class="row">
-      <div class="col-12 text-center">
-        <img src="https://via.placeholder.com/200x100">
-        <span>RPG</span>
+      <div class="col-12 text-center my-2">
+        <img src="assets/images/StarWarsLogo.png" class="img-fluid logo">
       </div>
     </div>
   </header>
@@ -32,76 +32,79 @@
       <!-- fighter banner -->
 
       <div class="col-2">
-        <img src="https://via.placeholder.com/100x100" alt="Card image cap" id="anakin">
+        <img src="assets/images/a_skywalker.png" alt="Anakin Skywalker" class="char-banner" id="anakin">
         <div>
-          <p>Anakin Skywalker</p>
+          <h6 class="char-banner-text">Anakin <br> Skywalker</h6>
         </div>
       </div>
       <div class="col-2">
-        <img src="https://via.placeholder.com/100x100" alt="Card image cap" id="obiWan">
+        <img src="assets/images/obiwan.png" alt="Obi-Wan Kenobi" class="char-banner" id="obiWan">
         <div>
-          <h6>Character 2</h6>
-        </div>
-      </div>
-      <div class="col-2">
-        <img src="https://via.placeholder.com/100x100" alt="Card image cap">
-        <div>
-          <h6>Character 3</h6>
+          <h6 class="char-banner-text">Obi-Wan <br> Kenobi</h6>
         </div>
       </div>
       <div class="col-2">
         <img src="https://via.placeholder.com/100x100" alt="Card image cap">
         <div>
-          <h6>Character 4</h6>
+          <h6 class="char-banner-text">Character 3</h6>
         </div>
       </div>
       <div class="col-2">
         <img src="https://via.placeholder.com/100x100" alt="Card image cap">
         <div>
-          <h6>Character 5</h6>
+          <h6 class="char-banner-text">Character 4</h6>
+        </div>
+      </div>
+      <div class="col-2">
+        <img src="https://via.placeholder.com/100x100" alt="Card image cap">
+        <div>
+          <h6 class="char-banner-text">Character 5</h6>
         </div>
       </div>
       <!-- end of fighter banner -->
 
     </div>
 
-    <div class="row d-flex justify-content-around my-4">
+    <div class="row d-flex justify-content-around my-2">
 
-      <div class="card col-4">
-        <img class="card-img-top" src="https://via.placeholder.com/300x300" alt="Card image cap">
+      <div class="col-4">
+        <img class="char-selected" src="assets/images/TransparentPlaceholder.png" alt="PlayerCharacter" id="player">
       </div>
 
-      <div class="card col-4">
-        <div class="row my-auto">
+      <div class="col-4 my-auto">
+        <div class="row">
 
           <!-- character info cards/ will show character information on hover -->
 
-          <div class="col-6 card border-success">
-            <div class="card-header">Header</div>
-            <div class="card-body text-success">
-              <h5 class="card-title">Status</h5>
-              <h6>Health:</h6>
-              <h6>Attack:</h6>
+          <div class="col-6 card text-white bg-success">
+            <h5 class="card-header text-center"><span id="playerName">Player</span></h5>
+            <div class="card-body">
+              <h6 class="card-title text-center">Status</h6>
+              <h6>Health:<span id="playerHealth"></span></h6>
+              <h6>Attack:<span id="playerAttack"></span></h6>
             </div>
           </div>
-          <div class="col-6 card border-danger">
-            <div class="card-header">Header</div>
-            <div class="card-body text-danger">
-              <h5 class="card-title">Status</h5>
-              <h6>Health:</h6>
-              <h6>Defense:</h6>
+
+          <div class="col-6 card text-white bg-danger">
+            <h5 class="card-header text-center"><span id="enemyName">Enemy</span></h5>
+            <div class="card-body text-white">
+              <h6 class="card-title text-center">Status</h6>
+              <h6>Health:<span id="enemyHealth"></span></h6>
+              <h6>Defense:<span id="enemyDefense"></span></h6>
             </div>
           </div>
         </div>
-        
-        <div class="row mb-auto">
-          <button type="button" class="btn btn-outline-warning btn-block" id="attack-btn">Large button</button>
+
+        <!-- Attack button -->
+
+        <div class="row">
+          <button type="button" class="btn btn-outline-warning btn-block" id="attack-btn">ATTACK</button>
         </div>
 
       </div>
 
-      <div class="card col-4">
-        <img class="card-img-top" src="https://via.placeholder.com/300x300" alt="Card image cap">
+      <div class="col-4">
+        <img class="char-selected" src="assets/images/TransparentPlaceholder.png" alt="EnemyCharacter" id="enemy">
       </div>
 
     </div>

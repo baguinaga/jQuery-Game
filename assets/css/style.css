@@ -1,7 +1,70 @@
+/* element styles */
 * {
   box-sizing: border-box;
 }
 
+body {
+  background: url(../images/ep_naturalblack.png);
+}
+
+/* classes */
+.char-banner-text {
+  font-family: 'Gothic A1', sans-serif;
+  color: white;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+
+.logo {
+  width: 20%;
+  height: auto;
+}
+
 .btn-block {
   padding: 5%;
+}
+
+/*char banner and pseudo class */
+.char-banner {
+  width: 65%;
+  height: auto;
+  border-radius: 50%;
+  border: 0.2vw solid #ffd700;
+  opacity:0.8;
+}
+
+.char-banner:hover {
+  cursor: pointer; 
+  border: 0.2vw solid #ffffff;
+  opacity: 0.9;
+}
+
+/* defeated class and hover pseudo class */
+.char-banner-defeated {
+  border: 0.2vw solid #495057;
+  opacity: 0.6;
+}
+
+.char-banner-defeated:hover {
+  cursor: auto;
+  opacity: 0.6;
+}
+
+/* player and enemy classes */
+
+.char-banner-player {
+  border: 0.2vw solid #28a745;
+  opacity: 1;
+}
+
+.char-banner-enemy {
+  border: 0.2vw solid #dc3545;
+  opacity: 1;
+}
+
+.char-selected {
+  width: 100%;
+  height: auto;
+  border-radius: 3%;
 }
