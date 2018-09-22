@@ -1,13 +1,20 @@
 $(document).ready(function () {
 
-  //initializing variables (on hover/select)
+  //initializing variables (for on hover/select and Character methods)
 
-  var anakin = new character($("#anakin"), "Anakin Skywalker", 1000, 150, 100, false, false);
-  var obiWan = new character($("#obiWan"), "Obi-Wan Kenobi", 1200, 140, 200, false, false);
+  var anakin = new Character($("#anakin"), "Anakin Skywalker", 1000, 150, 100, false, false);
+  var obiWan = new Character($("#obiWan"), "Obi-Wan Kenobi", 1200, 140, 250, false, false);
+  var hanSolo = new Character($("#hanSolo"), "Han Solo", 800, 120, 160, false, false);
+  var luke = new Character($("#luke"), "Luke Skywalker", 1100, 140, 100, false, false)
+  var darthVader = new Character($("#darthVader"), "Darth Vader", 900, 160, 300, false, false);
 
-  var playerChars = [anakin, obiWan];
 
-  //Enemy Select Booleans and Enemy defeated
+  var player = {};
+  var enemy = {};
+  var playerChars = [anakin, obiWan, hanSolo,luke,darthVader];
+
+  //Character Select Booleans and Character Active booleans
+
   var playerActive = true;
   var enemyActive = true;
   var playerSelected = false;
@@ -19,7 +26,7 @@ $(document).ready(function () {
 
   //object constructor function and object methods
 
-  function character(reference, name, hp, attack, defense, isPlayer, isEnemy) {
+  function Character(reference, name, hp, attack, defense, isPlayer, isEnemy) {
     this.reference = reference;
     this.name = name;
     this.hp = hp;
@@ -67,16 +74,37 @@ $(document).ready(function () {
       $(playerChars[i].reference).click(function () {
         if (playerSelected === false) {
           $("#player").attr("src", $(this).attr("src"));
+          $(this).addClass("char-banner-player");
           playerSelected = true;
+          playerChars[i].isPlayer = true;
+          hero = {...playerChars[i]};
         } else if (playerSelected === true && enemySelected === false) {
           if ($(this).attr("src") != $("#player").attr("src")) {
             $("#enemy").attr("src", $(this).attr("src"));
+            $(this).addClass("char-banner-enemy");
             enemySelected = true;
+            playerChars[i].isEnemy = true;
+            
           }
         }
       })
     }
   }
+
+  function clickOnAttack() {
+    for(let i = 0; i < playerChars.length; i++) {
+      if (playerChars[i].isEnemy === true) {
+        var enemyTemp = playerChars[i]; 
+      }
+      if (playerChars[i].isPlayer === true) {
+        playerChars.attack(enemyTemp);
+        console.log(enemyTemp);
+      }
+    }
+  }
+
+  //testing the click on attack function 
+  clickOnAttack()
 
   // character select used to initialize the game
   charSelect();

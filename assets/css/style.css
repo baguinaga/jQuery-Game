@@ -15,9 +15,27 @@ body {
   margin-bottom: 3%;
 }
 
+.header-text {
+  font-family: 'Gothic A1', sans-serif;
+  color: white;
+  font-size: 160%;
+  font-weight: bold;
+}
+
+.status-text {
+  font-family: 'Gothic A1', sans-serif;
+  color: white;
+  font-size: 120%;
+  line-height: 80%;
+}
+
+.status-text span {
+  font-size: 140%;
+  font-weight: bold;
+}
 
 .logo {
-  width: 20%;
+  width: 16%;
   height: auto;
 }
 
@@ -30,19 +48,19 @@ body {
   width: 65%;
   height: auto;
   border-radius: 50%;
-  border: 0.2vw solid #ffd700;
-  opacity:0.8;
+  border: 0.3vw solid #ffd700;
+  opacity:0.85;
 }
 
 .char-banner:hover {
   cursor: pointer; 
-  border: 0.2vw solid #ffffff;
-  opacity: 0.9;
+  border: 0.3vw solid #ffffff;
+  opacity: 1;
 }
 
 /* defeated class and hover pseudo class */
 .char-banner-defeated {
-  border: 0.2vw solid #495057;
+  border: 0.3vw solid #495057;
   opacity: 0.6;
 }
 
@@ -54,12 +72,12 @@ body {
 /* player and enemy classes */
 
 .char-banner-player {
-  border: 0.2vw solid #28a745;
+  border: 0.3vw solid #28a745;
   opacity: 1;
 }
 
 .char-banner-enemy {
-  border: 0.2vw solid #dc3545;
+  border: 0.3vw solid #dc3545;
   opacity: 1;
 }
 
