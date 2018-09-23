@@ -2,11 +2,11 @@ $(document).ready(function () {
 
   //initializing variables (for on hover/select and Character methods)
 
-  var anakin = new Character($("#anakin"), "Anakin Skywalker", 1000, 150, 100);
-  var obiWan = new Character($("#obiWan"), "Obi-Wan Kenobi", 1200, 140, 250);
-  var hanSolo = new Character($("#hanSolo"), "Han Solo", 800, 120, 160);
-  var luke = new Character($("#luke"), "Luke Skywalker", 1100, 140, 100)
-  var darthVader = new Character($("#darthVader"), "Darth Vader", 900, 160, 300);
+  var anakin = new Character($("#anakin"), "Anakin Skywalker", 1800, 120, 300);
+  var obiWan = new Character($("#obiWan"), "Obi-Wan Kenobi", 2200, 140, 450);
+  var hanSolo = new Character($("#hanSolo"), "Han Solo", 1600, 110, 350);
+  var luke = new Character($("#luke"), "Luke Skywalker", 1800, 150, 400)
+  var darthVader = new Character($("#darthVader"), "Darth Vader", 1600, 150, 500);
 
   var player = {};
   var enemy = {};
@@ -95,6 +95,19 @@ $(document).ready(function () {
     }
   }
 
+  function reset() {
+    console.log("the game has been reset")
+    playerActive = true;
+    enemyActive = true;
+    playerSelected = false;
+    enemySelected = false;
+    $("#player").attr("src", "assets/images/TransparentPlaceholder.png");
+    $("#enemy").attr("src", "assets/images/TransparentPlaceholder.png");
+    console.log($(".char-banner"));
+    $(".char-banner").removeClass("char-banner-defeated char-selected-defeated char-banner-player char-banner-enemy");
+    charSelect();
+  }
+
   // click on attack function, that requires the player and enemy objects
   // will not run until player select has completed
 
@@ -104,8 +117,7 @@ $(document).ready(function () {
       statusText(enemy);
       statusText(player);
       if (playerActive === false) {
-        //removing player from selected area
-        // game over screen
+        reset();
         console.log("player is dead");
       } else if (enemyActive === false) {
         enemySelected = false;
@@ -135,6 +147,6 @@ $(document).ready(function () {
   });
 
   // character select; Used to initialize the game
-  
+
   charSelect();
 });
