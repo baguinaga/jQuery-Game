@@ -2,16 +2,16 @@ $(document).ready(function () {
 
   //initializing variables (for on hover/select and Character methods)
 
-  var anakin = new Character($("#anakin"), "Anakin Skywalker", 1000, 150, 100, false, false);
-  var obiWan = new Character($("#obiWan"), "Obi-Wan Kenobi", 1200, 140, 250, false, false);
-  var hanSolo = new Character($("#hanSolo"), "Han Solo", 800, 120, 160, false, false);
-  var luke = new Character($("#luke"), "Luke Skywalker", 1100, 140, 100, false, false)
-  var darthVader = new Character($("#darthVader"), "Darth Vader", 900, 160, 300, false, false);
-
+  var anakin = new Character($("#anakin"), "Anakin Skywalker", 1000, 150, 100);
+  var obiWan = new Character($("#obiWan"), "Obi-Wan Kenobi", 1200, 140, 250);
+  var hanSolo = new Character($("#hanSolo"), "Han Solo", 800, 120, 160);
+  var luke = new Character($("#luke"), "Luke Skywalker", 1100, 140, 100)
+  var darthVader = new Character($("#darthVader"), "Darth Vader", 900, 160, 300);
 
   var player = {};
   var enemy = {};
-  var playerChars = [anakin, obiWan, hanSolo,luke,darthVader];
+  var playerChars = [anakin, obiWan, hanSolo, luke, darthVader];
+  var enemyDefeated = [];
 
   //Character Select Booleans and Character Active booleans
 
@@ -20,24 +20,18 @@ $(document).ready(function () {
   var playerSelected = false;
   var enemySelected = false;
 
-  //testing characters
-
-  console.log(anakin, obiWan);
-
   //object constructor function and object methods
 
-  function Character(reference, name, hp, attack, defense, isPlayer, isEnemy) {
+  function Character(reference, name, hp, attack, defense) {
     this.reference = reference;
     this.name = name;
     this.hp = hp;
     this.attack = attack;
     this.defense = defense;
-    this.isPlayer = isPlayer;
-    this.isEnemy = isEnemy;
 
     this.combat = function (enemy) {
       enemy.hp -= this.attack;
-      if (enemy.hp === 0) {
+      if (enemy.hp <= 0) {
         this.attack += this.attack;
         return enemyActive = false;
       } else {
@@ -51,9 +45,25 @@ $(document).ready(function () {
     }
   }
 
-  //combat method for testing purposes, remove this after completion
-
-  console.log(anakin, obiWan);
+  function statusText(object) {
+    if (playerSelected === false || object === player) {
+      if (object.hp <= 0) {
+        $("#playerHealth").text("0");
+      } else {
+        $("#playerHealth").text(object.hp);
+      }
+      $("#playerName").text(object.name);
+      $("#playerAttack").text(object.attack);
+    } else if (playerSelected === true && enemySelected === false || object === enemy) {
+      if (object.hp <= 0) {
+        $("#enemyHealth").text("0");
+      } else {
+        $("#enemyHealth").text(object.hp);
+      }
+      $("#enemyName").text(object.name);
+      $("#enemyDefense").text(object.defense);
+    }
+  }
 
   // event listener functions for character select and stats on hover
   // event listener functions for enemy select (after character select) and after enemy defeated
@@ -61,56 +71,70 @@ $(document).ready(function () {
   function charSelect() {
     for (let i = 0; i < playerChars.length; i++) {
       $(playerChars[i].reference).on("mouseover", function () {
-        if (playerSelected === false) {
-          $("#playerName").text(playerChars[i].name);
-          $("#playerHealth").text(playerChars[i].hp);
-          $("#playerAttack").text(playerChars[i].attack);
-        } else if (playerSelected === true && enemySelected === false) {
-          $("#enemyName").text(playerChars[i].name);
-          $("#enemyHealth").text(playerChars[i].hp);
-          $("#enemyDefense").text(playerChars[i].defense);
-        }
+        statusText(playerChars[i]);
       })
       $(playerChars[i].reference).click(function () {
         if (playerSelected === false) {
           $("#player").attr("src", $(this).attr("src"));
           $(this).addClass("char-banner-player");
+          player = { ...playerChars[i]
+          };
           playerSelected = true;
-          playerChars[i].isPlayer = true;
-          hero = {...playerChars[i]};
         } else if (playerSelected === true && enemySelected === false) {
-          if ($(this).attr("src") != $("#player").attr("src")) {
+          if ($(this).attr("src") != $("#player").attr("src") && !enemyDefeated.includes(playerChars[i])) {
             $("#enemy").attr("src", $(this).attr("src"));
+            $("#enemy").removeClass("char-selected-defeated");
             $(this).addClass("char-banner-enemy");
+            enemy = { ...playerChars[i]
+            };
             enemySelected = true;
-            playerChars[i].isEnemy = true;
-            
+            enemyActive = true;
           }
         }
       })
     }
   }
 
-  function clickOnAttack() {
-    for(let i = 0; i < playerChars.length; i++) {
-      if (playerChars[i].isEnemy === true) {
-        var enemyTemp = playerChars[i]; 
-      }
-      if (playerChars[i].isPlayer === true) {
-        playerChars.attack(enemyTemp);
-        console.log(enemyTemp);
+  // click on attack function, that requires the player and enemy objects
+  // will not run until player select has completed
+
+  function combatOnClick() {
+    if (playerActive === true && enemyActive === true && enemySelected === true) {
+      player.combat(enemy);
+      statusText(enemy);
+      statusText(player);
+      if (playerActive === false) {
+        //removing player from selected area
+        // game over screen
+        console.log("player is dead");
+      } else if (enemyActive === false) {
+        enemySelected = false;
+        $(enemy.reference).addClass("char-banner-defeated");
+        $("#enemy").addClass("char-selected-defeated");
+        enemyDefeated.push(enemy);
+        console.log(enemyDefeated);
+        if (enemyDefeated.length != 4) {
+          charSelect();
+          console.log("enemy is dead");
+        } else {
+          $("#enemy")
+            .removeClass("char-selected-defeated")
+            .attr("src", "assets/images/victory.png");
+          console.log("this is the winning scenario; still need to balance the game")
+        }
       }
     }
   }
 
-  //testing the click on attack function 
-  clickOnAttack()
-
-  // character select used to initialize the game
-  charSelect();
-
   // on click event listener for attack button (should call on player character methods)
 
-  //function for removing characters from play
+  $("#attack-btn").on("click", function () {
+    if (playerSelected === true && enemySelected === true) {
+      combatOnClick();
+    }
+  });
 
+  // character select; Used to initialize the game
+  
+  charSelect();
 });

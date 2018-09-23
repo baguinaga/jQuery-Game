@@ -58,17 +58,6 @@ body {
   opacity: 1;
 }
 
-/* defeated class and hover pseudo class */
-.char-banner-defeated {
-  border: 0.3vw solid #495057;
-  opacity: 0.6;
-}
-
-.char-banner-defeated:hover {
-  cursor: auto;
-  opacity: 0.6;
-}
-
 /* player and enemy classes */
 
 .char-banner-player {
@@ -81,8 +70,26 @@ body {
   opacity: 1;
 }
 
+/* defeated class and hover pseudo class */
+.char-banner-defeated {
+  border: 0.3vw solid #495057;
+  opacity: 0.6;
+}
+
+.char-banner-defeated:hover {
+  cursor: auto;
+  opacity: 0.6;
+}
+
 .char-selected {
   width: 100%;
   height: auto;
   border-radius: 3%;
+}
+
+.char-selected-defeated {
+  width: 100%;
+  height: auto;
+  border-radius: 3%;
+  opacity: 0.6;
 }
