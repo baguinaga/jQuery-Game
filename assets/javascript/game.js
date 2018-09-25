@@ -65,8 +65,8 @@ $(document).ready(function () {
     }
   }
 
-  // event listener functions for character select and stats on hover
-  // event listener functions for enemy select (after character select) and after enemy defeated
+  // event listener function for character select and stats on hover
+  // event listener function for enemy select (after character select) and after enemy defeated
 
   function charSelect() {
     for (let i = 0; i < playerChars.length; i++) {
@@ -95,16 +95,24 @@ $(document).ready(function () {
     }
   }
 
+  //reset game condition 
   function reset() {
-    console.log("the game has been reset")
+    console.log("The game has been reset")
+
+    //resetting initial game condition booleans
+
     playerActive = true;
     enemyActive = true;
     playerSelected = false;
     enemySelected = false;
-    $("#player").attr("src", "assets/images/TransparentPlaceholder.png");
+
+    //removing defeated css classes and clearing #player and #enemy
+
+    $("#player")
+      .removeClass("char-selected-defeated")
+      .attr("src", "assets/images/TransparentPlaceholder.png");
     $("#enemy").attr("src", "assets/images/TransparentPlaceholder.png");
-    console.log($(".char-banner"));
-    $(".char-banner").removeClass("char-banner-defeated char-selected-defeated char-banner-player char-banner-enemy");
+    $(".char-banner").removeClass("char-banner-defeated char-banner-player char-banner-enemy");
     charSelect();
   }
 
@@ -117,8 +125,9 @@ $(document).ready(function () {
       statusText(enemy);
       statusText(player);
       if (playerActive === false) {
-        reset();
-        console.log("player is dead");
+        $(player.reference).addClass("char-banner-defeated");
+        $("#player").addClass("char-selected-defeated");
+        console.log("The player character is dead.");
       } else if (enemyActive === false) {
         enemySelected = false;
         $(enemy.reference).addClass("char-banner-defeated");
@@ -127,7 +136,7 @@ $(document).ready(function () {
         console.log(enemyDefeated);
         if (enemyDefeated.length != 4) {
           charSelect();
-          console.log("enemy is dead");
+          console.log("The enemy has been defeated.");
         } else {
           $("#enemy")
             .removeClass("char-selected-defeated")
@@ -140,10 +149,19 @@ $(document).ready(function () {
 
   // on click event listener for attack button (should call on player character methods)
 
-  $("#attack-btn").on("click", function () {
+  $("#attack-btn").on("click", function (event) {
+    event.preventDefault();
+
     if (playerSelected === true && enemySelected === true) {
       combatOnClick();
     }
+  });
+
+  //on click event listener for reset button (calls on reset())
+
+  $("#reset-btn").on("click", function(event) {
+    event.preventDefault();
+    reset();
   });
 
   // character select; Used to initialize the game
